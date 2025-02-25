@@ -7,47 +7,63 @@ class ProductoService {
     }
 
     async createProducto(producto){
-        // Validar que todos los campos obligatorios vengan
-        if  (!producto.nombre || !producto.precio || !producto.fechaAdquisicion || !producto.numSerie){
+        //Validar que todos los campos obligatorios vengan
+        if (!producto.nombre || !producto.precio || !producto.fechaAdquisicion || !producto.numSerie) {
             throw new Error('Todos los campos son requeridos');
         }
 
-        // Validar que el numero de serie no exista
+        //Validar que el numero de serie no exista
         const productoByNumSerie = await ProductoRepository.getProductosByNumSerie(producto.numSerie);
         if (productoByNumSerie) {
             throw new Error('El número de serie ya existe');
         }
 
-        // Validar que el precio no sea negativo
+        //Validar que el precio no sea negativo
         if (producto.precio < 1) {
-            throw new Error('El precio debe de ser mayor a 0');
-            
+            throw new Error('El precio debe ser mayor a 0');
         }
 
-        // Validar que la fecha de adquision tenga formato válido
-        if (!Validaciones.esFechaValida(producto.fechaAdquisicion)) {
-            throw new Error('La fehca de adquisición no tiene el formato correcto');
+        //Validar que la fecha de adquisicion tenga formato valido
+        if(!Validaciones.esFechaValida(producto.fechaAdquisicion)){
+            throw new Error('La fecha de adquisición no tiene el formato correcto');
         }
-
-        // Generar numero de inventario
-        // año-consecutivo 2025-001
-        // Obtener el año de asquisicion
-        // 2025-02-24
+        //Generar número de inventario
+        //año-consecutivo 20225-001
+        //Obtener el año de adquisicion
+        //2025-02-24
         const yearAdquisicion = producto.fechaAdquisicion.split('-')[0];
-        // 2025 [0] | 02 [1] | 24 [2]
+        //2025 [0]
+        //02 [1]
+        //24[2]
 
-        let countYear = await ProductoRepository.contrarProductorByYear(yearAdquisicion);
+        let countYear = await ProductoRepository.contarProductosByYear(yearAdquisicion);
 
-        // Incrementar en 1 el contador
+        //Incremetar en 1 el contador
         countYear++;
 
-        // padStart funciona para agregar ceros a la izquierda si el número no tiene digitos
+        //padStart funciona para agregar ceros a la izquierda si el número no tiene dígitos
         producto.numInventario = `${yearAdquisicion}-${countYear.toString().padStart(3, '0')}`;
 
         return await ProductoRepository.createProducto(producto);
     }
 
+    async getProductoById(id){
+            const producto = await ProductoRepository.getProductoById(id);
+            if (!producto) {
+                throw new Error('Producto no encontrado');
+            }
+    
+            return producto;
+    }
 
+    async getProductosByNumSerie(numSerie){
+        const producto = await ProductoRepository.getProductosByNumSerie(numSerie);
+        if (!producto) {
+            throw new Error('Producto no encontrado');
+        }
+
+        return producto;
+    }
 
 }
 

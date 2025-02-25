@@ -10,7 +10,7 @@ class ProductoRepository {
     }
     
     async getProductosByNumSerie(numSerie) {
-        return await Producto.findOne(numSerie);
+        return await Producto.findOne({ numSerie: numSerie });
     }
 
     async createProducto(producto) {
@@ -26,14 +26,14 @@ class ProductoRepository {
         return await Producto.findByIdAndDelete(id);
     }
 
-    async contrarProductorByYear(year){
-        const fechaInicio = new Date(`${year}-01-01T00:00:00:000Z`);
-        const fechaFin = new Date(`${year}-12-31T23:59:59:999Z`);
+    async contarProductosByYear(year){
+        const fechaInicio = new Date(`${year}-01-01T00:00:00.000Z`);
+        const fechaFin = new Date(`${year}-12-31T23:59:59.999Z`);
 
         return await Producto.countDocuments({
-            fechaAdquisicion: {
+            fechaAdquisicion:{
                 $gte: fechaInicio,
-                $lte: fechaFin
+                $lte:fechaFin
             }
         });
     }
