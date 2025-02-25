@@ -14,4 +14,10 @@ router.get('/id/:id', ProductoController.getProductoById);
 // Obtener por Número de Serie
 router.get('/numSerie/:numSerie', ProductoController.getProductosByNumSerie);
 
+// Actualizar productos
+router.put('/:id', ProductoController.updateProducto);
+
+// Eliminar productos
+router.delete("/id/:id", ProductoController.deleteProducto);
+
 module.exports = router;
