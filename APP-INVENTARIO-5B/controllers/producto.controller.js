@@ -83,7 +83,7 @@ class ProductoController {
         
                 // Llamar al servicio para eliminar el producto
                 const producto = await productoService.deleteProducto(productoId);
-                res.status(200).json(producto);                
+                res.status(200).json({message : 'Producto eliminado'});                
             } catch (error) {
                 res.status(400).json({ message: error.message });
             }
