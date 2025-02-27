@@ -10,3 +10,13 @@ const PersonaSchema = mongoose.Schema({
 })
 
 module.exports = mongoose.model('Persona', PersonaSchema);
+
+/* 
+{
+    "nombre": "Murga",
+    "apellido": "Murga",
+    "fechaNacimiento": "2005-01-04",
+    "rfc": "MUAA050104AAA",
+    "correo": "20233tn150"
+}
+*/
