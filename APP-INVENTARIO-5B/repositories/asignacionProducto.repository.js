@@ -15,12 +15,12 @@ class AsignacionProductoRepository {
         return await AsignacionProducto.create({persona : personaId, producto : productoId, fechaAsignacion : fechaAsignacion, estado : 'Activo'}); 
     }
 
-    async inactiveStatusAsignacionProducto() {
-        return await AsignacionProducto.findByStatusInactive();
+    async inactiveStatusAsignacionProducto(idAsignacion) {
+        return await AsignacionProducto.findByIdAndUpdate(idAsignacion, { estado : "Inactivo"});
     }
 
-    async getAllAsignacionProductoById(id) {
-        return await AsignacionProducto.findById(id);
+    async getAllAsignacionProductoById(personaId) {
+        return await AsignacionProducto.find({persona : personaId}).populate('producto');
     }
 
 }

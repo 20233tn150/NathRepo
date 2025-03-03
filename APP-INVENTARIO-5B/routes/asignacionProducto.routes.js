@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/activas', AsignacionProductoController.getAllAsignacionesActivas);
 
-router.get('/inactivas', AsignacionProductoController.inactiveStatusAsignacionProducto);
+router.put('/inactivas/:id', AsignacionProductoController.inactiveStatusAsignacionProducto);
 
 // router.get('/all', AsignacionProductoController.getAllAsignacionesProductosByPersona);
 

@@ -56,17 +56,22 @@ class AsignacionProductoService {
         }
     }
 
-    async inactiveStatusAsignacionProducto() {
-        return await AsignacionProductoRepository.inactiveStatusAsignacionProducto();
+    async inactiveStatusAsignacionProducto(idAsignacion) {
+        const asignacionCreada = await AsignacionProductoRepository.inactiveStatusAsignacionProducto(idAsignacion);
+        if (!asignacionCreada) {
+            throw new Error('Asignación no encontrada');
+        }
+        
+        await AsignacionProductoRepository.inactiveStatusAsignacionProducto(asignacionCreada);
     }
 
-    async getAllAsignacionProductoById(productoId) {
-        const producto = await AsignacionProductoRepository.getAllAsignacionProductoById(productoId);
-        if (!producto) {
-            throw new Error("El producto no existe");
+    async getAllAsignacionProductoById(id) {
+        
+        const persona = await AsignacionProductoRepository.getAllAsignacionProductoById(id);
+        if (!persona) {
+            throw new Error("La persona no existe");
         }
-
-        return producto;
+        return persona;
     }
 
 }
