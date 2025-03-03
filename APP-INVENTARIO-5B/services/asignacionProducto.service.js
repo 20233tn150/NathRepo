@@ -56,6 +56,19 @@ class AsignacionProductoService {
         }
     }
 
+    async inactiveStatusAsignacionProducto() {
+        return await AsignacionProductoRepository.inactiveStatusAsignacionProducto();
+    }
+
+    async getAllAsignacionProductoById(productoId) {
+        const producto = await AsignacionProductoRepository.getAllAsignacionProductoById(productoId);
+        if (!producto) {
+            throw new Error("El producto no existe");
+        }
+
+        return producto;
+    }
+
 }
 
 module.exports = new AsignacionProductoService();

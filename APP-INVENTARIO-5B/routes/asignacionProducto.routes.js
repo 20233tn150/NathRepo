@@ -4,11 +4,11 @@ const router = express.Router();
 
 router.get('/activas', AsignacionProductoController.getAllAsignacionesActivas);
 
-// router.get('/inactivas', AsignacionProductoController.inactiveStatusAsignacionProducto);
+router.get('/inactivas', AsignacionProductoController.inactiveStatusAsignacionProducto);
 
 // router.get('/all', AsignacionProductoController.getAllAsignacionesProductosByPersona);
 
-// router.get('/idPersona/:id', AsignacionProductoController.getAllAsignacionProductoById);
+router.get('/idPersona/:id', AsignacionProductoController.getAllAsignacionProductoById);
 
 router.post('/', AsignacionProductoController.createAsignacionProducto);
 

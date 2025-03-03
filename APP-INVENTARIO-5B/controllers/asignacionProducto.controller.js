@@ -52,6 +52,28 @@ class AsignacionProductoController {
             res.status(400).json({message: error.message});
         }
     }
+
+    async inactiveStatusAsignacionProducto(req, res){
+        try {
+            const asignacionesInactivas = await AsignacionProductoService.inactiveStatusAsignacionProducto();
+            res.json(asignacionesInactivas);
+        } catch (error) {
+            res.status(400).json({message: error.message});
+        }
+    }
+
+    async getAllAsignacionProductoById(req, res){
+        try {
+            const productoId = req.body.producto;
+            if (!productoId || productoId == "" || productoId == null || productoId == undefined) {
+                throw new Error("El id del producto es requerido");
+            }
+            const producto = await AsignacionProductoService.getAllAsignacionProductoById();
+            res.json(producto);
+        } catch (error) {
+            res.status(400).json({message: error.message});
+        }
+    }
 }
 
 module.exports = new AsignacionProductoController();
